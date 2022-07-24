@@ -87,9 +87,23 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        //validate
+        $request->validate([
+            "title" => "string|required|max:255",
+            "content" => "string|required|max:65535",
+            "published" => "sometimes|accepted"
+        ]);
+
+        $data = $request->all();
+        $post->title = $data['title'];
+        $post->content = $data['content'];
+        $post->published = isset($data['published']);
+        $post->slug = Str::of($data['title'])->slug('-');
+        $post->save();
+        return redirect()->route('admin.posts.show', $post->id);
+        
     }
 
     /**
