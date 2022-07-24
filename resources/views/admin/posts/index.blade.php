@@ -24,7 +24,7 @@
                 <td>{{$post->published ? 'Pubblicato &check;' : 'Non Pubblicato '."&cross;"}}</td>
                 <td>
                     <a class="btn btn-primary" href="{{route('admin.posts.show', $post)}}">Visualizza</a>
-                    <a class="btn btn-warning" href="{{route('admin.posts.show', $post)}}">Modifica</a>
+                    <a class="btn btn-warning" href="{{route('admin.posts.edit', $post)}}">Modifica</a>
                     <form class="d-inline-block" action="{{route('admin.posts.destroy', $post)}}" method="POST">
                         @csrf
                         @method('DELETE')
